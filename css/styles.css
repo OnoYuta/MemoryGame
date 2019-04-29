@@ -12,6 +12,7 @@ body {
 
 #stage {
   display: flex;
+  clear: both;
   flex-wrap: wrap;
   user-select: none;
 }
@@ -66,10 +67,18 @@ body {
   transform: rotateY(180deg);
 }
 
-#score {
+.score {
   font-size: 20px;
   color: #fff;
-  text-align: right;
+}
+
+#youWins {
+  float: left;
+  margin: 0 0 10px 5px;
+}
+
+#cpuWins {
+  float: right;
   margin: 0 5px 10px 0;
 }
 
