@@ -16,8 +16,10 @@
   let yourTurn;
   let youWins = 0;
   let cpuWins = 0;
+  const turn = document.getElementById('turn');
   const youWinsLabel = document.getElementById('youWins');
   const cpuWinsLabel = document.getElementById('cpuWins');
+  const btn = document.getElementById('restart');
 
   function init() {
     let card;
@@ -51,7 +53,9 @@
           return;
         }
         isRunning = true;
-        document.getElementById('restart').classList.remove('inactive');
+        turn.classList.toggle('yourTurn');
+        turn.textContent = "あなたのターン";
+        btn.classList.remove('inactive');
       }
     });
     container = document.createElement('div');
@@ -86,17 +90,7 @@
       firstCard.children[0].textContent !==
       secondCard.children[0].textContent
     ) {
-      firstCard.classList.remove('open');
-      secondCard.classList.remove('open');
-      firstCard.classList.add('close');
-      secondCard.classList.add('close');
-      if (yourTurn === true) {
-        yourTurn = false;
-        cpuTurn();
-      } else {
-        yourTurn = true;
-        clearTimeout(timeoutId);
-      }
+      failure();
     } else {
       correctCount += 2;
       if (yourTurn === true) {
@@ -126,6 +120,23 @@
     secondCard = null;
   }
 
+  function failure() {
+    firstCard.classList.remove('open');
+    secondCard.classList.remove('open');
+    firstCard.classList.add('close');
+    secondCard.classList.add('close');
+    if (yourTurn === true) {
+      yourTurn = false;
+      turn.textContent = "ＣＰＵのターン";
+      cpuTurn();
+    } else {
+      yourTurn = true;
+      turn.textContent = "あなたのターン";
+      clearTimeout(timeoutId);
+    }
+    turn.classList.toggle('yourTurn');
+  }
+
   function cpuTurn() {
     const closed = document.getElementsByClassName('close');
     const rand = Math.floor(Math.random() * closed.length);
@@ -137,6 +148,14 @@
       }, 1200);
     }
   }
+
+  btn.addEventListener('mousedown', () => {
+    btn.classList.add('pressed');
+  })
+
+  btn.addEventListener('mouseup', () => {
+    btn.classList.remove('pressed');
+  })
 
   init();
 
