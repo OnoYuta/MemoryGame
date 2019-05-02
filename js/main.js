@@ -21,6 +21,9 @@
   const cpuWinsLabel = document.getElementById('cpuWins');
   const btn = document.getElementById('restart');
 
+  const modal = document.getElementById('modal');
+  const mask = document.getElementById('mask');
+
   function init() {
     let card;
     for (let i = 1; i <= pairs; i++) {
@@ -110,7 +113,9 @@
           } else {
             result = "DRAW GAME";
           }
-          alert(result);
+          modal.textContent = result;
+          modal.classList.remove('hidden');
+          mask.classList.remove('hidden');
         }, 100);
       }
     }
@@ -155,6 +160,14 @@
 
   btn.addEventListener('mouseup', () => {
     btn.classList.remove('pressed');
+  })
+
+  modal.addEventListener('click', () => {
+     location.href = "";
+  })
+
+  mask.addEventListener('click', () => {
+     modal.click();
   })
 
   init();
